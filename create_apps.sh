@@ -42,7 +42,7 @@ while IFS= read -r line; do
       
       mv template.desktop $appNameLowercase.desktop
 
-      ln -s $app_dir/$appNameLowercase/$appNameLowercase.desktop $HOME/.local/share/applications/myApps_$appNameLowercase.desktop 
+      ln -s $app_dir/$appNameLowercase/$appNameLowercase.desktop $HOME/.local/share/applications/myChats_$appNameLowercase.desktop 
 
       cd $app_dir
       cd ..
