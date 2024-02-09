@@ -2,6 +2,8 @@
 
 Similar idea to [Nativefier](https://github.com/nativefier/nativefier), but just the way I like it 😀.
 
+To change apps you plan to install modify ```myApplist/applist.txt``` and add the required png with the same name in lowercase.
+
 ## Install
 
 Requires ```nodejs```
@@ -16,6 +18,4 @@ npm install
 cd ..
 bash create_apps.sh
 ```
-This script also creates a symbolic link of the desktop files to ```~/.local/share/applications/``` if you move the folder the symbolic links will have to be deleted remade.
-
-To change apps you plan to install modify ```myApplist/applist.txt``` and add the required png with the same name in lowercase.
+This script writes folder location into the created apps, and creates a symbolic link of the desktop files to ```~/.local/share/applications/```. If you move the folder delete the desktop files and all apps in "myApps" folder and rerun ```create_apps.sh```.
