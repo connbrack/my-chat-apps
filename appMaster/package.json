@@ -1,0 +1,16 @@
+{
+  "name": "name__of__app_lc__",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "latest"
+  },
+  "dependencies": {
+    "electron-chrome-extension": "^5.0.0",
+    "electron-store": "^8.1.0",
+    "tslib": "^2.6.2"
+  }
+}

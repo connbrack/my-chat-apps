@@ -1,0 +1,3 @@
+WhatsApp,https://web.whatsapp.com
+Messenger,https://www.facebook.com/messages
+Messages,https://messages.google.com/web

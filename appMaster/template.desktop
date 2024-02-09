@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+StartupWMClass=<wmclass>
+Version=1.0
+Type=Application
+Terminal=false
+Exec=path__to__dir__/name__of__app_lc__/run.sh
+Name=name__of__app__
+Icon=path__to__dir__/name__of__app_lc__/icon.png
