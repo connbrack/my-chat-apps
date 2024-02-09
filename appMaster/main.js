@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, MenuItem } = require('electron');
+const { app, shell, BrowserWindow, Tray, Menu, MenuItem } = require('electron');
 const path = require('path');
 
 const url = 'https://example.com/'
@@ -52,6 +52,12 @@ function createWindow() {
   mainWindow.webContents.on('new-window', function(e, url) {
     e.preventDefault();
     require('electron').shell.openExternal(url);
+  });
+
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+      shell.openExternal(url);
+      return { action: 'deny' };
   });
 
   mainWindow.on('close', function (event) {
