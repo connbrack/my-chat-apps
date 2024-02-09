@@ -18,4 +18,4 @@ npm install
 cd ..
 bash create_apps.sh
 ```
-This script writes folder location into the created apps, and creates a symbolic link of the desktop files to ```~/.local/share/applications/```. If you move the folder delete the desktop files and all apps in "myApps" folder and rerun ```create_apps.sh```.
+This script writes folder location into the created apps, and creates a symbolic link of the desktop files to ```~/.local/share/applications/```. If you move the folder delete the linked desktop files and all apps in "myApps" folder and rerun ```create_apps.sh```.
