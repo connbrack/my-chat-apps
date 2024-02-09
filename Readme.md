@@ -16,6 +16,6 @@ npm install
 cd ..
 bash create_apps.sh
 ```
-This script also creates a symbolic link of the desktop file to ```~/.local/share/applications/``` if you move ththe folder the symbolic links will have to be deleted remade.
+This script also creates a symbolic link of the desktop files to ```~/.local/share/applications/``` if you move the folder the symbolic links will have to be deleted remade.
 
 To change apps you plan to install modify ```myApplist/applist.txt``` and add the required png with the same name in lowercase.
