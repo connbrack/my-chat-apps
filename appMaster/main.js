@@ -60,8 +60,10 @@ function createWindow() {
       return { action: 'deny' };
   });
 
+
   mainWindow.on('close', function (event) {
     if (!app.isQuiting) {
+      mainWindow.webContents.setAudioMuted(true);
       event.preventDefault();
       mainWindow.hide();
     }
@@ -94,6 +96,7 @@ function createTray() {
 function forceShow() {
     mainWindow.hide();
     mainWindow.show();
+    mainWindow.webContents.setAudioMuted(false);
 }
 
 function createContextMenu() {
