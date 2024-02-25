@@ -19,9 +19,9 @@ while IFS= read -r line; do
 
     if [ -d "${app_dir}/${appNameLowercase}" ]; then
       echo "${appName} already exists"
-      echo
 
     else
+      echo "Creating ${appName}"
       
       cp -r appMaster/ myApps/$appNameLowercase/
       cp -f myApplist/$appNameLowercase.png myApps/$appNameLowercase/icon.png
