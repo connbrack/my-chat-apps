@@ -1,4 +1,4 @@
-WhatsApp,https://web.whatsapp.com
-Messenger,https://www.facebook.com/messages
-Messages,https://messages.google.com/web
 Instagram,https://www.instagram.com/direct/inbox/
+Messages,https://messages.google.com/web
+Messenger,https://www.facebook.com/messages
+WhatsApp,https://web.whatsapp.com
