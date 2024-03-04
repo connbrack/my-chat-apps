@@ -21,6 +21,7 @@ if (!gotTheLock) {
 
   app.on('ready', () => {
     createWindow();
+    createMenu();
     createContextMenu();
     createTray();
   })
@@ -32,10 +33,6 @@ app.on('activate', function () {
   }
 });
 
-app.on('before-quit', function () {
-  app.quit();
-});
-
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -44,7 +41,7 @@ function createWindow() {
     spellcheck: true,
     autoHideMenuBar: true,
     backgroundColor: '#181926',
-    icon: path.join(__dirname, 'icon.png')
+    icon: path.join(__dirname, 'icon/256x256.png')
   });
 
   mainWindow.loadURL(url, {userAgent: userAgent});
@@ -60,7 +57,6 @@ function createWindow() {
       return { action: 'deny' };
   });
 
-
   mainWindow.on('close', function (event) {
     if (!app.isQuiting) {
       mainWindow.webContents.setAudioMuted(true);
@@ -72,8 +68,28 @@ function createWindow() {
 
 }
 
+function createMenu() {
+  // Define a template for your application's menu
+  const template = [
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Quit',
+          accelerator: process.platform === 'darwin' ? 'Cmd+Q' : 'Ctrl+Q',
+          click: function () { app.isQuiting = true; app.quit(); },
+        },
+      ],
+    },
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
+
+
 function createTray() {
-    tray = new Tray(path.join(__dirname, 'icon.png'));
+    tray = new Tray(path.join(__dirname, 'icon/256x256.png'));
 
     const contextMenu = Menu.buildFromTemplate([
       {
