@@ -6,7 +6,6 @@ app_dir_esc=$(echo "$app_dir" | sed -e 's/\//\\\//g')
 
 if [ ! -d "$app_dir" ]; then
     mkdir -p "$app_dir"
-    echo "Directory created: $app_dir"
 fi
 
 
@@ -17,36 +16,30 @@ while IFS= read -r line; do
     url_esc=$(echo "$url" | sed -e 's/\//\\\//g')
     appNameLowercase=${appName,,}
 
-    if [ -d "${app_dir}/${appNameLowercase}" ]; then
-      echo "${appName} already exists"
+    echo; echo 
+    echo "###### Creating ${appName}"
+    echo; echo 
+    
+    cp -r appMaster/ myApps/$appNameLowercase/
+    cp -f myApplist/$appNameLowercase.png myApps/$appNameLowercase/icon/256x256.png
 
-    else
-      echo "Creating ${appName}"
-      
-      cp -r appMaster/ myApps/$appNameLowercase/
-      cp -f myApplist/$appNameLowercase.png myApps/$appNameLowercase/icon.png
+    cd $app_dir/$appNameLowercase    
 
-      cd myApps/$appNameLowercase    
+    sed -i "s/name__of__app__/${appName}/g" main.js 
+    sed -i "s/https:\/\/example.com\//${url_esc}/g" main.js 
 
-      sed -i "s/name__of__app__/${appName}/g" main.js 
-      sed -i "s/https:\/\/example.com\//${url_esc}/g" main.js 
+    sed -i "s/name__of__app__/${appName}/g" package.json
+    sed -i "s/name__of__app_lc__/${appNameLowercase}/g" package.json
 
-      sed -i "s/name__of__app_lc__/${appNameLowercase}/g" package.json
+    npm install
+    npm run dist
 
-      sed -i "s/path__to__dir__/${app_dir_esc}/g" run.sh
-      sed -i "s/name__of__app_lc__/${appNameLowercase}/g" run.sh
+    cd dist
+    sudo apt install --reinstall ./*.deb
 
-      sed -i "s/path__to__dir__/${app_dir_esc}/g" template.desktop
-      sed -i "s/name__of__app__/${appName}/g" template.desktop
-      sed -i "s/name__of__app_lc__/${appNameLowercase}/g" template.desktop
-      
-      mv template.desktop $appNameLowercase.desktop
-
-      ln -s $app_dir/$appNameLowercase/$appNameLowercase.desktop $HOME/.local/share/applications/myChats_$appNameLowercase.desktop 
-
-      cd $app_dir
-      cd ..
-
-    fi
+    cd $app_dir
+    cd ..
 
 done < "myApplist/applist.txt"
+
+rm -r $app_dir
