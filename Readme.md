@@ -15,4 +15,4 @@ git clone https://github.com/connbrack/my-chat-app.git
 cd my-chat-app
 bash create_apps.sh
 ```
-After completing you may remove the git folder
+After completing you may remove the cloned folder.
