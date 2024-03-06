@@ -41,10 +41,11 @@ function createWindow() {
     spellcheck: true,
     autoHideMenuBar: true,
     backgroundColor: '#181926',
-    icon: path.join(__dirname, 'icon/256x256.png')
+    icon: path.join(__dirname, 'icon.png'),
   });
 
   mainWindow.loadURL(url, {userAgent: userAgent});
+
 
   mainWindow.webContents.on('new-window', function(e, url) {
     e.preventDefault();
@@ -89,7 +90,7 @@ function createMenu() {
 
 
 function createTray() {
-    tray = new Tray(path.join(__dirname, 'icon/256x256.png'));
+    tray = new Tray(path.join(__dirname, 'icon.png'));
 
     const contextMenu = Menu.buildFromTemplate([
       {

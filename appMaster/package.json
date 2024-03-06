@@ -1,10 +1,6 @@
 {
-  "name": "my-chat-apps-name__of__app_lc__",
+  "name": "name__of__app__",
   "version": "1.0.0",
-  "license": "MIT",
-  "description": "A my-chat-apps app for name__of__app__.",
-  "homepage": "https://github.com/connbrack/my-chat-apps",
-  "author": "xyz <xyz@gmail.com>",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -13,14 +9,11 @@
     "dist": "electron-builder"
   },
   "build": {
-    "appId": "name__of__app__",
+    "productName": "name__of__app__",
     "linux": {
-      "target": [ "deb" ],
+      "target": [ "appimage" ],
       "icon": "icon/",
-      "category": "Chat;electron",
-      "desktop": {
-        "Name": "name__of__app__"
-      }
+      "category": "Chat;electron"
     }
   },
   "devDependencies": {

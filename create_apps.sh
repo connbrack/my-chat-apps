@@ -1,11 +1,14 @@
 #/bin/bash/
 
-app_dir="${PWD}/myApps/"
-app_dir_esc=$(echo "$app_dir" | sed -e 's/\//\\\//g')
+temp_dir="${PWD}/temp/"
+appimage_dir="${PWD}/myApps/"
 
 
-if [ ! -d "$app_dir" ]; then
-    mkdir -p "$app_dir"
+if [ ! -d "$temp_dir" ]; then
+    mkdir -p "$temp_dir"
+fi
+if [ ! -d "$appimage_dir" ]; then
+    mkdir -p "$appimage_dir"
 fi
 
 
@@ -20,10 +23,10 @@ while IFS= read -r line; do
     echo "###### Creating ${appName}"
     echo; echo 
     
-    cp -r appMaster/ myApps/$appNameLowercase/
-    cp -f myApplist/$appNameLowercase.png myApps/$appNameLowercase/icon/256x256.png
+    cp -r appMaster/ $temp_dir/$appNameLowercase/
+    cp -f myApplist/$appNameLowercase.png $temp_dir/$appNameLowercase/icon.png
 
-    cd $app_dir/$appNameLowercase    
+    cd $temp_dir/$appNameLowercase    
 
     sed -i "s/name__of__app__/${appName}/g" main.js 
     sed -i "s/https:\/\/example.com\//${url_esc}/g" main.js 
@@ -35,11 +38,11 @@ while IFS= read -r line; do
     npm run dist
 
     cd dist
-    sudo apt install --reinstall ./*.deb
+    cp *.AppImage $appimage_dir
 
-    cd $app_dir
+    cd $temp_dir
     cd ..
 
 done < "myApplist/applist.txt"
 
-rm -r $app_dir
+rm -r $temp_dir
