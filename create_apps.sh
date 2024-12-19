@@ -3,6 +3,14 @@
 temp_dir="${PWD}/temp/"
 appimage_dir="${PWD}/myApps/"
 
+wh=256
+pad=10
+wh_large=512
+
+wxh=${wh}x${wh}
+wh_inner=$((wh-pad*2))
+wxh_inner=${wh_inner}x${wh_inner}
+
 
 if [ ! -d "$temp_dir" ]; then
     mkdir -p "$temp_dir"
@@ -12,37 +20,36 @@ if [ ! -d "$appimage_dir" ]; then
 fi
 
 
-while IFS= read -r line; do
+appName=$1
+url=$2
+url_esc=$(echo "$url" | sed -e 's/\//\\\//g')
+appNameLowercase=${appName,,}
 
-    appName=$(echo "$line" | cut -d ',' -f 1)
-    url=$(echo "$line" | cut -d ',' -f 2)
-    url_esc=$(echo "$url" | sed -e 's/\//\\\//g')
-    appNameLowercase=${appName,,}
 
-    echo; echo 
-    echo "###### Creating ${appName}"
-    echo; echo 
-    
-    cp -r appMaster/ $temp_dir/$appNameLowercase/
-    cp -f myApplist/$appNameLowercase.png $temp_dir/$appNameLowercase/icon.png
+echo; echo 
+echo "###### Creating ${appName}"
+echo; echo 
 
-    cd $temp_dir/$appNameLowercase    
+cp -r appMaster/ $temp_dir/$appNameLowercase/
+rm $temp_dir/$appNameLowercase/icon.png
+curl "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=$url&size=256" > $temp_dir/$appNameLowercase/icon.png
+magick $temp_dir/$appNameLowercase/icon.png -resize $wxh_inner -background none -gravity center -extent $wxh $temp_dir/$appNameLowercase/icon.png
 
-    sed -i "s/name__of__app__/${appName}/g" main.js 
-    sed -i "s/https:\/\/example.com\//${url_esc}/g" main.js 
+cd $temp_dir/$appNameLowercase    
 
-    sed -i "s/name__of__app__/${appName}/g" package.json
-    sed -i "s/name__of__app_lc__/${appNameLowercase}/g" package.json
+sed -i "s/name__of__app__/${appName}/g" main.js 
+sed -i "s/https:\/\/example.com\//${url_esc}/g" main.js 
 
-    npm install
-    npm run dist
+sed -i "s/name__of__app__/${appName}/g" package.json
+sed -i "s/name__of__app_lc__/${appNameLowercase}/g" package.json
 
-    cd dist
-    cp *.AppImage $appimage_dir
+npm install
+npm run dist
 
-    cd $temp_dir
-    cd ..
+cd dist
+cp *.AppImage $appimage_dir
 
-done < "myApplist/applist.txt"
+cd $temp_dir
+cd ..
 
 rm -r $temp_dir
