@@ -2,3 +2,4 @@ Instagram,https://www.instagram.com/direct/inbox/
 Messages,https://messages.google.com/web
 Messenger,https://www.facebook.com/messages
 WhatsApp,https://web.whatsapp.com
+Discord,https://discord.com/app
